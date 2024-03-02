@@ -1,9 +1,9 @@
 //! Lexer for meowfiles.
 
 use diagnostics::Span;
-use tokens::{Token, TokenKind};
+use token::{Token, TokenKind};
 
-mod tokens;
+pub mod token;
 
 /// Lexer object for each token.
 #[derive(Debug)]
@@ -31,14 +31,14 @@ impl Lexer<'_> {
 		let span = self.inner.span();
 		match token {
 			Some(token) => Token {
-				kind: token.unwrap_or(TokenKind::Error),
+				kind: token.unwrap_or(T!(err)),
 				span: Span {
 					start: span.start as _,
 					end: span.end as _,
 				},
 			},
 			None => Token {
-				kind: TokenKind::EOF,
+				kind: T!(eof),
 				span: self.eof_span(),
 			},
 		}
@@ -65,8 +65,8 @@ mod test {
 
         let mut tok = lex.next();
         
-        while !matches!(tok.kind, TokenKind::EOF) {
-            assert_ne!(tok.kind, TokenKind::Error);
+        while !matches!(tok.kind, T!(eof)) {
+            assert_ne!(tok.kind, T!(err));
             tok = lex.next();
         }
     }
