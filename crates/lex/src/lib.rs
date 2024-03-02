@@ -3,6 +3,7 @@
 use diagnostics::Span;
 use token::{Token, TokenKind};
 
+/// The tokens the lexer produces
 pub mod token;
 
 /// Lexer object for each token.
@@ -60,14 +61,17 @@ mod test {
     const FILE: &str = include_str!("../../../meowfile");
 
     #[test]
-    fn lex() {
-        let mut lex = Lexer::new(FILE);
-
-        let mut tok = lex.next();
-        
-        while !matches!(tok.kind, T!(eof)) {
-            assert_ne!(tok.kind, T!(err));
-            tok = lex.next();
-        }
-    }
+    fn verify_span_is_continuous() {
+		let mut lexer = Lexer::new(FILE);
+		
+		let mut next = lexer.next();
+		let mut last_end = 0;
+	
+		while !matches!(next.kind, T![eof]) {
+			let span = next.span;
+			assert_eq!(last_end, span.start);
+			last_end = span.end;
+			next = lexer.next();
+		}
+	}
 }

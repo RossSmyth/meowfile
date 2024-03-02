@@ -1,12 +1,17 @@
 use diagnostics::Span;
 use logos::Logos;
 
+/// Token & span
 #[derive(Clone, Copy, Default, Debug)]
 pub struct Token {
+	/// The token itself
 	pub kind: TokenKind,
+
+	/// The location in the file.
 	pub span: Span,
 }
 
+#[allow(missing_docs)]
 #[derive(Copy, Clone, Debug, Default, PartialEq, Eq, Hash, Logos)]
 pub enum TokenKind {
     #[regex(r"(\p{XID_Start}\p{XID_Continue}*)|(_\p{XID_Continue}+)", priority = 2)]
