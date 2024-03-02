@@ -1,0 +1,51 @@
+Name = 
+    'ident'
+
+ItemKind = 
+      Rule | LetExpr
+
+Rule =
+    Attr* Visibility?
+    'rule' Name (body:Block)
+
+Stmt =
+    Expr
+
+Expr =
+      ArrayExpr
+    | Block
+    | Literal
+    | Shell
+    | LetExpr
+
+ArrayExpr =
+    '[' ArrayList ']'
+
+ArrayList =
+    (Expr (',' Expr)* ','?)?
+
+LetExpr =
+    'export'? 'let' Name ('=' init:Expr)
+
+Shell = '&' Expr
+
+Literal = 'string'
+
+Block =
+    Attr* '{' statements:(Stmt*) '}'
+
+InfixOp =
+    '+'
+
+SourceFile =
+    'shebang'?
+    Attr*
+    ItemKind*
+
+Visibility = 'pub'
+
+Attr =
+    '#' '!'? '[' Meta ']'
+
+Meta =
+    Name ('=' Literal)?

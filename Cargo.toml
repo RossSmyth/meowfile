@@ -11,6 +11,7 @@ version = "0.0.0"
 [workspace.dependencies]
 lex = { path = "crates/lex" }
 diagnostics = { path = "crates/diagnostics" }
+syntax = {path = "crates/syntax"}
 
 [workspace.lints.rust]
 unsafe_code = "deny"
