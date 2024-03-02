@@ -1,0 +1,19 @@
+#![config(shell = "pwsh")]
+
+let thing = "test"
+
+export let MEOW = "CAT"
+
+pub rule {
+    & "Write-Output hi"
+    & ["Write-Output", "hi"]
+
+    let cmd = "Write-Output"
+    let mess = "hi"
+
+    & cmd + " " + mess
+
+    let mess = & "Write-Output hi"
+
+    & [cmd, mess]
+}

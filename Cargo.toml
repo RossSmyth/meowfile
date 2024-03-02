@@ -1,0 +1,19 @@
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "Blue Oak"
+authors = ["Ross Smyth"]
+version = "0.0.0"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+missing_docs = "warn"
+missing_debug_implementations = "warn"
+dead_code = "warn"
+
+[profile.release]
+incremental = true
+debug = 0
