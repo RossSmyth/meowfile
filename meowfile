@@ -4,7 +4,7 @@ let thing = "test"
 
 export let MEOW = "CAT"
 
-pub rule {
+pub rule meow {
     & "Write-Output hi"
     & ["Write-Output", "hi"]
 

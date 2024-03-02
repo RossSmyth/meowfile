@@ -8,6 +8,10 @@ license = "Blue Oak"
 authors = ["Ross Smyth"]
 version = "0.0.0"
 
+[workspace.dependencies]
+lex = { path = "crates/lex" }
+diagnostics = { path = "crates/diagnostics" }
+
 [workspace.lints.rust]
 unsafe_code = "deny"
 missing_docs = "warn"
