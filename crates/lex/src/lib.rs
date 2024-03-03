@@ -1,5 +1,7 @@
 //! Lexer for meowfiles.
 
+use std::ops::Range;
+
 use diagnostics::Span;
 use token::{Token, TokenKind};
 
@@ -10,6 +12,10 @@ pub mod token;
 #[derive(Debug)]
 pub struct Lexer<'s> {
 	inner: logos::Lexer<'s, TokenKind>,
+
+	/// Debug field to verify all tokens are accounted for.
+	#[cfg(debug_assertions)]
+	last_end: u32,
 }
 
 impl<'s> Lexer<'s> {
@@ -17,6 +23,8 @@ impl<'s> Lexer<'s> {
 	pub fn new(source: &'s str) -> Self {
 		Self {
 			inner: logos::Lexer::new(source),
+			#[cfg(debug_assertions)]
+			last_end: 0,
 		}
 	}
 
@@ -29,13 +37,20 @@ impl Lexer<'_> {
     /// Calculate the next token in the source 
 	pub fn next(&mut self) -> Token {
 		let token = self.inner.next();
-		let span = self.inner.span();
+		let Range { start, end } = self.inner.span();
+
+		let start = start.try_into().expect("Input too long to properly tokenize (exceeds a u32)");
+		let end = end.try_into().expect("Input too long to properly tokenize (exceeds a u32)");
+
+		assert_eq!(self.last_end, start as _, "Tokens not contiguous for token {:?} at start location {}", token, start);
+		self.last_end = end as _;
+
 		match token {
 			Some(token) => Token {
 				kind: token.unwrap_or(T!(err)),
 				span: Span {
-					start: span.start as _,
-					end: span.end as _,
+					start,
+					end
 				},
 			},
 			None => Token {
@@ -65,12 +80,9 @@ mod test {
 		let mut lexer = Lexer::new(FILE);
 		
 		let mut next = lexer.next();
-		let mut last_end = 0;
 	
 		while !matches!(next.kind, T![eof]) {
-			let span = next.span;
-			assert_eq!(last_end, span.start);
-			last_end = span.end;
+			assert_ne!(next.kind, T![err]);
 			next = lexer.next();
 		}
 	}
