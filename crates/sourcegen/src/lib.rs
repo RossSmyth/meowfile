@@ -1,12 +1,7 @@
-//! rust-analyzer relies heavily on source code generation.
-//!
-//! Things like feature documentation or assist tests are implemented by
-//! processing rust-analyzer's own source code and generating the appropriate
-//! output. See `sourcegen_` tests in various crates.
-//!
-//! This crate contains utilities to make this kind of source-gen easy.
+//! Copied from rust-analyzer
 
 #![warn(rust_2018_idioms, unused_lifetimes)]
+#![allow(missing_docs, missing_debug_implementations, unused_variables)]
 
 use std::{
     fmt, fs, mem,

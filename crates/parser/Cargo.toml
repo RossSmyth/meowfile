@@ -1,18 +1,15 @@
 [package]
-name = "sourcegen"
-description = "https://github.com/rust-lang/rust-analyzer/tree/master/crates/sourcegen"
-publish = false
-version = "0.0.0"
-
+name = "parser"
 edition.workspace = true
 license.workspace = true
 authors.workspace = true
+version.workspace = true
 rust-version.workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-xshell = "0.2"
+lex.workspace = true
 
 [lints]
 workspace = true

@@ -8,7 +8,16 @@ version.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+rustc-hash = "1.1"
+itertools = "0.12"
+
+proc-macro2 = "1.0.47"
+quote = "1.0.20"
 ungrammar = "1.16"
+
+# Internal deps
+lex.workspace = true
+sourcegen.workspace = true
 
 [lints]
 workspace = true
