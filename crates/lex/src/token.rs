@@ -31,7 +31,7 @@ pub enum TokenKind {
     #[token("=")]
     Equal,
     #[token("&")]
-    Execute,
+    Ampersand,
     #[regex(r#""(\.|[^"\\])*""#)]
     StringLit,
     #[token("{")]
@@ -55,7 +55,7 @@ pub enum TokenKind {
 	// Everything in 
 	// https://github.com/rust-lang/regex/blob/10fe722a3fcfdc17068b21f3262189cc52227bb5/regex-syntax/src/unicode_tables/property_bool.rs#L9909-L9920
 	// except for newlines linefeed
-    #[regex(r"[ \t\u{b}\u{c}\u{d}\u{2028}\u{85}\u{a0}\u{1680}\u{2000}-\u{200a}\u{2028}\u{2029}\u{202f}\u{205f}\u{3000}]+")]
+    #[regex(r"[\p{White_Space}&&[^\n]]+")]
 	Whitespace,
 	#[token("\n")]
 	Newline,

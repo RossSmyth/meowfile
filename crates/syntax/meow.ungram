@@ -6,16 +6,16 @@ ItemKind =
 
 Rule =
     Attr* Visibility?
-    'rule' Name (body:Block)
+    'rule' Name (body:BlockExpr)
 
 Stmt =
-    Expr
+    Expr 'newline'
 
 Expr =
       ArrayExpr
-    | Block
+    | BlockExpr
     | Literal
-    | Shell
+    | ShellExpr
     | LetExpr
 
 ArrayExpr =
@@ -27,15 +27,18 @@ ArrayList =
 LetExpr =
     'export'? 'let' Name ('=' init:Expr)
 
-Shell = '&' Expr
+ShellExpr = '&' Expr
 
 Literal = 'string'
 
-Block =
-    Attr* '{' statements:(Stmt*) '}'
+StmtList =
+    '{' statements:(Stmt*) '}'
 
-InfixOp =
-    '+'
+BlockExpr =
+    Attr* StmtList
+
+BinExpr =
+    lhs:Expr op:( '+' ) rhs:Expr
 
 SourceFile =
     'shebang'?

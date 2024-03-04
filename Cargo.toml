@@ -7,11 +7,13 @@ edition = "2021"
 license = "Blue Oak"
 authors = ["Ross Smyth"]
 version = "0.0.0"
+rust-version = "1.76"
 
 [workspace.dependencies]
 lex = { path = "crates/lex" }
 diagnostics = { path = "crates/diagnostics" }
-syntax = {path = "crates/syntax"}
+syntax = { path = "crates/syntax" }
+sourcegen = { path = "crates/sourcegen" }
 
 [workspace.lints.rust]
 unsafe_code = "deny"
