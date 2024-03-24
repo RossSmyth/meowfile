@@ -17,7 +17,8 @@ use crate::ast_src::{
 
 mod ast_src;
 
-fn main() {
+#[test]
+fn sourcegen_ast() {
     let syntax_kinds = generate_syntax_kinds(KINDS_SRC);
     let syntax_kinds_file =
         sourcegen::project_root().join("crates/parser/src/syntax_kind/generated.rs");
